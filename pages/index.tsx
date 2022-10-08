@@ -1,10 +1,32 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import Layout from "../components/layout.component";
+import PatientPreview from "../components/patient-preview.component";
+import { fetchPatients } from "../utils/fetchers.util";
+import { PatientPreviewType } from "../utils/types.util";
 
-const Home: NextPage = () => {
-  return <h2 className="text-2xl mx-auto w-fit text-red-500">DR DASHBOARD</h2>;
+type Props = {
+  patients: PatientPreviewType[];
+};
+
+export async function getServerSideProps() {
+  const patients = await fetchPatients();
+
+  return {
+    props: { patients },
+  };
+}
+
+const Home = ({ patients }: Props) => {
+  console.log(patients);
+  return (
+    <Layout>
+      <div className="w-1/4 min-w-fit mx-auto my-4 flex flex-col gap-8">
+        {patients.map((patient: PatientPreviewType, idx: number) => (
+          <PatientPreview key={idx} patient={patient} />
+        ))}
+      </div>
+    </Layout>
+  );
 };
 
 export default Home;
