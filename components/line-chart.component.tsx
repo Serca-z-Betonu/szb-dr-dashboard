@@ -13,8 +13,8 @@ import { Line } from "react-chartjs-2";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMetric } from "../utils/fetchers.util";
 import { useContext } from "react";
-import { PatientContext } from "../pages/patients/[patientId]";
 import { PatientContextType } from "../utils/types.util";
+import { PatientContext } from "./tabs.component";
 
 ChartJS.register(
   CategoryScale,
@@ -35,7 +35,7 @@ type Props = {
 export default function LineChart({ metricType, yLabel, title }: Props) {
   const { patientId } = useContext<PatientContextType>(PatientContext);
 
-  const { data, isLoading } = useQuery([metricType], async () => {
+  const { data, isLoading } = useQuery([patientId, metricType], async () => {
     const result = await fetchMetric(patientId, metricType);
     return result;
   });

@@ -1,8 +1,10 @@
 import {
+  DrugAllType,
   DrugType,
   HistoryType,
   PatientPreviewType,
   PatientType,
+  PrescriptionType,
 } from "./types.util";
 import { formatStringsToDatesChart } from "./functions.util";
 
@@ -12,6 +14,12 @@ export const fetchPatients = async () => {
   const result = await fetch(`${API_URL}/patients`);
   const patient = (await result.json()) as PatientPreviewType;
   return patient;
+};
+
+export const fetchDrugsAll = async () => {
+  const result = await fetch(`${API_URL}/drugs`);
+  const drugs = (await result.json()) as DrugAllType[];
+  return drugs;
 };
 
 export const fetchPatient = async (patientId: number) => {
@@ -57,4 +65,23 @@ export const fetchMetric = async (patientId: string, metricType: string) => {
   samples = samples.map((sample: any) => sample.value);
 
   return { timestamps, samples };
+};
+
+export const postPrescriptions = async (patientId: string, body: any) => {
+  const result = await fetch(
+    `${API_URL}/prescriptions?` +
+      new URLSearchParams({
+        patient_id: patientId,
+      }),
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }
+  );
+
+  return result;
 };

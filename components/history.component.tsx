@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
-import { PatientContext } from "../pages/patients/[patientId]";
 import { fetchHistory } from "../utils/fetchers.util";
 import { formatStringToDateChart } from "../utils/functions.util";
 import { PatientContextType } from "../utils/types.util";
+import { PatientContext } from "./tabs.component";
 
 type Props = {
   children: JSX.Element[] | JSX.Element;
@@ -16,10 +16,13 @@ export default function History() {
     PROCEDURE: "Procedura",
   };
 
-  const { data: histories, isLoading } = useQuery(["histories"], async () => {
-    const result = await fetchHistory(patientId);
-    return result;
-  });
+  const { data: histories, isLoading } = useQuery(
+    [patientId, "histories"],
+    async () => {
+      const result = await fetchHistory(patientId);
+      return result;
+    }
+  );
 
   if (isLoading) {
     return <div></div>;
@@ -30,12 +33,12 @@ export default function History() {
       <>
         {histories!.map((history, idx) => (
           <div key={idx} className="grid grid-cols-2 gap-8">
-            <div className="card-sm sticky top-[110px] w-2/4 justify-self-end">
+            <div className="card-sm sticky top-[110px] w-3/5 justify-self-end">
               <p>{formatStringToDateChart(history.timestamp)}</p>
               <p>{EVENT_TYPE[history.medical_event_type]}</p>
               <p>{history.summary}</p>
             </div>
-            <p className="w-1/2">{history.description}</p>
+            <p className="w-3/5 text-lg">{history.description}</p>
           </div>
         ))}
       </>

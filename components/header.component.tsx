@@ -21,12 +21,12 @@ export default function Header() {
             </div>
           </a>
         </Link>
-        <h1 className="font-serif font-medium text-3xl text-teal-400">
+        <h1 className="font-serif font-medium text-4xl text-[#f2a7ba]">
           Dr. Dashboard
         </h1>
       </div>
       <div className="flex gap-12">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <span className="material-icons text-5xl text-teal-500 ">
             account_circle
           </span>

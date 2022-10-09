@@ -3,6 +3,7 @@ export type PatientPreviewType = {
   name: string;
   pesel: string;
   surname: string;
+  sex: string;
   health_state: number;
 };
 
@@ -25,6 +26,12 @@ export type DrugType = {
   expires_at: string;
 };
 
+export type DrugAllType = {
+  drug_id: number;
+  name: string;
+  unit: string;
+};
+
 export type PatientContextType = {
   patientId: string;
 };
@@ -34,4 +41,12 @@ export type HistoryType = {
   summary: string;
   description: string;
   timestamp: string;
+};
+
+export type PrescriptionType = {
+  drug_id: number;
+  start_date: string;
+  end_date: string;
+  dose_size: number;
+  daily_dose_count: number;
 };
