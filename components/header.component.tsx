@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Logo from "../public/logo_pink.png";
 
 type Props = {
   children: JSX.Element[] | JSX.Element;
@@ -13,7 +14,7 @@ export default function Header() {
           <a>
             <div className="group w-16 h-16 relative ">
               <Image
-                src="/../public/logo_pink.png"
+                src={Logo}
                 className="group-hover:opacity-75"
                 layout="fill"
                 alt="logo"
