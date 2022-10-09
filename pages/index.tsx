@@ -17,7 +17,6 @@ export async function getServerSideProps() {
 }
 
 const Home = ({ patients }: Props) => {
-  console.log(patients);
   return (
     <Layout>
       <div className="w-1/4 mx-auto my-4 flex flex-col gap-8">

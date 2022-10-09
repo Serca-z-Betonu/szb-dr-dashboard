@@ -8,7 +8,7 @@ import {
 } from "./types.util";
 import { formatStringsToDatesChart } from "./functions.util";
 
-const API_URL = "http://192.168.137.247:8090";
+const API_URL = "http://192.168.14.8:8090";
 
 export const fetchPatients = async () => {
   const result = await fetch(`${API_URL}/patients`);

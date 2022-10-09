@@ -108,7 +108,7 @@ export default function DrugDialog({ patientId, isOpen, setIsOpen }: Props) {
                     />
                   </section>
                   <section>
-                    <label className="block">Dawka jednorazowa:</label>
+                    <label className="block">Wielkość pojedynczej dawki:</label>
                     <input
                       className="border-2 px-2 border-teal-500 rounded-lg w-1/2"
                       type="number"
@@ -118,7 +118,7 @@ export default function DrugDialog({ patientId, isOpen, setIsOpen }: Props) {
                     />
                   </section>
                   <section>
-                    <label className="block">Dzienna dawka:</label>
+                    <label className="block">Liczba dawek na dzień:</label>
                     <input
                       className="border-2 px-2 border-teal-500 rounded-lg w-1/2"
                       type="number"

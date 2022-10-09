@@ -55,7 +55,7 @@ export default function Drugs() {
           ))}
         </tbody>
       </table>
-      <button className="btn" onClick={() => drugDialogSetIsOpen(true)}>
+      <button className="btn " onClick={() => drugDialogSetIsOpen(true)}>
         Dodaj lek
       </button>
       <DrugDialog
