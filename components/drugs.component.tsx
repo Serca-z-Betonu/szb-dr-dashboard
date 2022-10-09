@@ -59,7 +59,7 @@ export default function Drugs() {
         className="btn flex mx-auto my-16"
         onClick={() => drugDialogSetIsOpen(true)}
       >
-        Dodaj lek
+        Dodaj receptę
       </button>
       <DrugDialog
         patientId={patientId}
