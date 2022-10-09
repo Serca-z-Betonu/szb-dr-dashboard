@@ -55,7 +55,10 @@ export default function Drugs() {
           ))}
         </tbody>
       </table>
-      <button className="btn " onClick={() => drugDialogSetIsOpen(true)}>
+      <button
+        className="btn flex mx-auto my-16"
+        onClick={() => drugDialogSetIsOpen(true)}
+      >
         Dodaj lek
       </button>
       <DrugDialog

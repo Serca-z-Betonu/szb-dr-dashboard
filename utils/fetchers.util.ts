@@ -84,3 +84,22 @@ export const postPrescriptions = async (patientId: string, body: any) => {
 
   return result;
 };
+
+export const postAlert = async (patientId: string, body: any) => {
+  const result = await fetch(
+    `${API_URL}/medical-alerts?` +
+      new URLSearchParams({
+        patient_id: patientId,
+      }),
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }
+  );
+
+  return result;
+};

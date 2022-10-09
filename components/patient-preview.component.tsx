@@ -12,7 +12,7 @@ export default function PatientPreview({ patient }: Props) {
 
   return (
     <Link href={`patients/${patient.patient_id}`}>
-      <a className="group bg-gray-200 rounded-lg shadow-md border-2 w-full h-32 p-2 border-teal-400 grid grid-cols-[1fr_100px] hover:opacity-50">
+      <a className="group bg-gray-200 rounded-lg shadow-md border-2 w-full h-32 min-w-fit p-2 border-teal-400 grid grid-cols-[1fr_100px] hover:opacity-50">
         <span className="material-icons-outlined text-5xl text-teal-900">
           {patient.sex === "MALE" ? "face_6" : "face_3"}
         </span>

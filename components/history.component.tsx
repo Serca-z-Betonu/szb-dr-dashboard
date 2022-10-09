@@ -13,7 +13,7 @@ export default function History() {
   const { patientId } = useContext<PatientContextType>(PatientContext);
   const EVENT_TYPE = {
     ADVISE: "Porada",
-    PROCEDURE: "Procedura",
+    PROCEDURE: "Zabieg",
   };
 
   const { data: histories, isLoading } = useQuery(
@@ -35,7 +35,9 @@ export default function History() {
           <div key={idx} className="grid grid-cols-2 gap-8">
             <div className="card-sm sticky top-[132px] w-3/5 justify-self-end">
               <p>{formatStringToDateChart(history.timestamp)}</p>
-              <p>{EVENT_TYPE[history.medical_event_type]}</p>
+              <p className="text-teal-700">
+                {EVENT_TYPE[history.medical_event_type]}
+              </p>
               <p>{history.summary}</p>
             </div>
             <p className="w-3/5 text-lg">{history.description}</p>

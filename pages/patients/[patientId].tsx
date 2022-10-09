@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { createContext, useState } from "react";
 import Layout from "../../components/layout.component";
+import MessageDialog from "../../components/message-dialog.components";
 import PatientPreview from "../../components/patient-preview.component";
 import { Tabs } from "../../components/tabs.component";
 import { fetchPatient } from "../../utils/fetchers.util";
@@ -18,6 +19,7 @@ export async function getServerSideProps({ params: { patientId } }: any) {
   };
 }
 const PatientProfile = ({ patient }: Props) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const color = `rgb(${Math.round(255 * patient.health_state)},0,0)`;
 
   return (
@@ -25,10 +27,18 @@ const PatientProfile = ({ patient }: Props) => {
       <div className="w-3/4  mx-auto my-4 flex flex-col gap-8">
         <div className="card min-w-fit grid grid-cols-[1fr_2fr_1fr]">
           <div className="flex flex-col gap-4 pl-8">
-            <div className="flex-1 grid place-items-center self-start">
+            <div className="flex-1 flex items-center justify-between">
               <span className="material-icons-outlined text-9xl text-teal-900 ">
                 {patient.sex === "MALE" ? "face_6" : "face_3"}
               </span>
+              <button
+                onClick={() => setIsOpen(true)}
+                className="self-center mr-auto mb-auto"
+              >
+                <span className="material-icons-outlined text-6xl text-teal-500 hover:opacity-75">
+                  email
+                </span>
+              </button>
             </div>
             <div className="mt-auto h-fit">
               <p className="text-md w-max">Wiek: {patient.age}</p>
@@ -65,6 +75,11 @@ const PatientProfile = ({ patient }: Props) => {
         </div>
         <Tabs patientId={patient.patient_id} />
       </div>
+      <MessageDialog
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        patientId={patient.patient_id.toString()}
+      />
     </Layout>
   );
 };

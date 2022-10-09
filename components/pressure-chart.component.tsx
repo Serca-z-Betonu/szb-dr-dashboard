@@ -24,6 +24,7 @@ ChartJS.register(
   TimeScale,
   PointElement,
   LineElement,
+  Legend,
   Title,
   Tooltip
 );
@@ -37,15 +38,15 @@ type Props = {
 export default function PressureChart() {
   const { patientId } = useContext<PatientContextType>(PatientContext);
 
-  const { data: minPressure, isLoading: minLoading } = useQuery(
-    [patientId, metricType],
+  const { data: minData, isLoading: minLoading } = useQuery(
+    [patientId, "BLOOD_PRESSURE_MIN"],
     async () => {
       const result = await fetchMetric(patientId, "BLOOD_PRESSURE_MIN");
       return result;
     }
   );
-  const { data: maxPressure, isLoading: maxLoading } = useQuery(
-    [patientId, metricType],
+  const { data: maxData, isLoading: maxLoading } = useQuery(
+    [patientId, "BLOOD_PRESSURE_MAX"],
     async () => {
       const result = await fetchMetric(patientId, "BLOOD_PRESSURE_MAX");
       return result;
@@ -56,82 +57,68 @@ export default function PressureChart() {
     return <div></div>;
   }
 
-  for (min of minPressure) {
-    for ()
-  }
-    const options = {
-      scales: {
-        x: {
-          type: "time",
-          time: {
-            unit: "day",
-          },
-          title: {
-            display: true,
-            text: "Data",
-          },
-          ticks: {
-            callback: function (label) {
-              let realLabel = this.getLabelForValue(label);
-              const month = realLabel.split(";")[0];
-              const year = realLabel.split(";")[1];
-              return month;
-            },
-          },
-          xAxis2: {
-            type: "MaxPressure",
-            grid: {
-              drawOnChartArea: false,
-            },
-            ticks: {
-              callback: function (label) {
-                let realLabel = this.getLabelForValue(label);
-
-                const month = realLabel.split(";")[0];
-                const year = realLabel.split(";")[1];
-                if (year) {
-                  return year;
-                } else {
-                  return "";
-                }
-              },
-            },
-          },
-          y: {
-            title: {
-              display: true,
-              text: yLabel,
-            },
-            min: 50,
-            max: 200,
-          },
+  const options = {
+    scales: {
+      x: {
+        type: "time",
+        time: {
+          unit: "day",
         },
-        interaction: {
-          mode: "index",
-          intersect: false,
+        title: {
+          display: true,
+          text: "Data",
         },
-        plugins: {
-          legend: {
-            position: "top" as const,
+        ticks: {
+          callback: function (value) {
+            const formatter = new Intl.DateTimeFormat("pl-PL", {
+              dateStyle: "medium",
+            });
+            return formatter.format(new Date(value));
           },
         },
       },
-    };
+      y: {
+        title: {
+          display: true,
+          text: "Ciśnienie [mm Hg]",
+        },
+        min: 50,
+        max: 200,
+      },
+    },
+    interaction: {
+      mode: "index",
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+    },
+  };
+
+  const labels =
+    minData!.timestamps.length > maxData!.timestamps.length
+      ? minData!.timestamps
+      : maxData!.timestamps;
 
   const chartData = {
-    labels: minPressure.forE,
+    labels,
     datasets: [
       {
-        data: minPressure!.samples,
-        borderColor: "hsl(345deg, 74%, 40%)",
-        backgroundColor: "hsl(345deg, 74%, 40%)",
+        label: "Minimalne",
+        data: minData!.samples,
+        borderColor: "hsl(200deg, 74%, 40%)",
+        backgroundColor: "hsl(200deg, 74%, 30%)",
+
         borderDash: [5, 5],
         pointRadius: 6,
       },
       {
-        data: maxPressure!.samples,
+        label: "Maksymalne",
+        data: maxData!.samples,
         borderColor: "hsl(345deg, 74%, 80%)",
-        backgroundColor: "hsl(345deg, 74%, 20%)",
+        backgroundColor: "hsl(345deg, 74%, 40%)",
         borderDash: [5, 5],
         pointRadius: 6,
       },
@@ -139,7 +126,7 @@ export default function PressureChart() {
   };
 
   return (
-    <div className="w-3/4 mx-auto">
+    <div className="col-span-2">
       <Line options={options} data={chartData} />
     </div>
   );

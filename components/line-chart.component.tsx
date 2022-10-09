@@ -32,9 +32,15 @@ type Props = {
   metricType: string;
   yLabel: string;
   title: string;
+  colorPart: string;
 };
 
-export default function LineChart({ metricType, yLabel, title }: Props) {
+export default function LineChart({
+  metricType,
+  yLabel,
+  title,
+  colorPart,
+}: Props) {
   const { patientId } = useContext<PatientContextType>(PatientContext);
 
   const { data, isLoading } = useQuery([patientId, metricType], async () => {
@@ -90,9 +96,10 @@ export default function LineChart({ metricType, yLabel, title }: Props) {
     labels: data!.timestamps,
     datasets: [
       {
+        label: title,
         data: data!.samples,
-        borderColor: "hsl(345deg, 74%, 80%)",
-        backgroundColor: "hsl(345deg, 74%, 40%)",
+        borderColor: colorPart + "80%)",
+        backgroundColor: colorPart + "40%)",
         borderDash: [5, 5],
         pointRadius: 6,
       },
@@ -100,7 +107,7 @@ export default function LineChart({ metricType, yLabel, title }: Props) {
   };
 
   return (
-    <div className="w-3/4 mx-auto">
+    <div>
       <Line options={options} data={chartData} />
     </div>
   );
