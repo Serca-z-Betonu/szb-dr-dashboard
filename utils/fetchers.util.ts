@@ -61,7 +61,6 @@ export const fetchMetric = async (patientId: string, metricType: string) => {
   let { samples } = await result.json();
 
   let timestamps = samples.map((sample: any) => sample.timestamp) as string[];
-  timestamps = formatStringsToDatesChart(timestamps);
   samples = samples.map((sample: any) => sample.value);
 
   return { timestamps, samples };

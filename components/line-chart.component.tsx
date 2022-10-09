@@ -2,6 +2,7 @@
 import {
   Chart as ChartJS,
   CategoryScale,
+  TimeScale,
   LinearScale,
   PointElement,
   LineElement,
@@ -9,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import 'chartjs-adapter-moment';
 import { Line } from "react-chartjs-2";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMetric } from "../utils/fetchers.util";
@@ -19,6 +21,7 @@ import { PatientContext } from "./tabs.component";
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  TimeScale,
   PointElement,
   LineElement,
   Title,
@@ -47,6 +50,10 @@ export default function LineChart({ metricType, yLabel, title }: Props) {
   const options = {
     scales: {
       x: {
+        type: "time",
+        time: {
+          unit: "day"
+        },
         title: {
           display: true,
           text: "Data",
