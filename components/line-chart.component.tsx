@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import 'chartjs-adapter-moment';
+import "chartjs-adapter-moment";
 import { Line } from "react-chartjs-2";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMetric } from "../utils/fetchers.util";
@@ -25,8 +25,7 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  Tooltip,
-  Legend
+  Tooltip
 );
 
 type Props = {
@@ -52,11 +51,19 @@ export default function LineChart({ metricType, yLabel, title }: Props) {
       x: {
         type: "time",
         time: {
-          unit: "day"
+          unit: "day",
         },
         title: {
           display: true,
           text: "Data",
+        },
+        ticks: {
+          callback: function (value) {
+            const formatter = new Intl.DateTimeFormat("pl-PL", {
+              dateStyle: "medium",
+            });
+            return formatter.format(new Date(value));
+          },
         },
       },
       y: {
@@ -76,10 +83,6 @@ export default function LineChart({ metricType, yLabel, title }: Props) {
       legend: {
         position: "top" as const,
       },
-      /* title: {
-        display: true,
-        text: "Bicie serca",
-      }, */
     },
   };
 
@@ -87,7 +90,6 @@ export default function LineChart({ metricType, yLabel, title }: Props) {
     labels: data!.timestamps,
     datasets: [
       {
-        label: title,
         data: data!.samples,
         borderColor: "hsl(345deg, 74%, 80%)",
         backgroundColor: "hsl(345deg, 74%, 40%)",
@@ -98,7 +100,7 @@ export default function LineChart({ metricType, yLabel, title }: Props) {
   };
 
   return (
-    <div>
+    <div className="w-3/4 mx-auto">
       <Line options={options} data={chartData} />
     </div>
   );

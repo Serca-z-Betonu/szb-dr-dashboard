@@ -10,6 +10,11 @@ type Props = {
 
 export async function getServerSideProps() {
   const patients = await fetchPatients();
+  patients.sort((a, b) => {
+    if (a.health_state < b.health_state) return -1;
+    else if (a.health_state > b.health_state) return 1;
+    return 0;
+  });
 
   return {
     props: { patients },

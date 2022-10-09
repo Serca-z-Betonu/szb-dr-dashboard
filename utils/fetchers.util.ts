@@ -12,7 +12,7 @@ const API_URL = "http://192.168.14.8:8090";
 
 export const fetchPatients = async () => {
   const result = await fetch(`${API_URL}/patients`);
-  const patient = (await result.json()) as PatientPreviewType;
+  const patient = (await result.json()) as PatientPreviewType[];
   return patient;
 };
 
