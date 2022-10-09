@@ -7,13 +7,13 @@ type Props = {
 
 export default function Header() {
   return (
-    <header className="bg-teal-800 flex justify-between items-center px-8 border-t-8 rounded-b-2xl border-teal-900">
+    <header className="sticky top-0 z-10 bg-teal-800 flex justify-between items-center px-8 border-t-8 rounded-b-2xl border-teal-900">
       <div className="flex items-center gap-4">
         <Link href="/">
           <a>
             <div className="group w-16 h-16 relative ">
               <Image
-                src="/../public/logo.png"
+                src="/../public/logo_pink.png"
                 className="group-hover:opacity-75"
                 layout="fill"
                 alt="logo"
@@ -21,7 +21,7 @@ export default function Header() {
             </div>
           </a>
         </Link>
-        <h1 className="font-serif font-medium text-2xl text-teal-500">
+        <h1 className="font-serif font-medium text-3xl text-teal-400">
           Dr. Dashboard
         </h1>
       </div>
@@ -30,7 +30,7 @@ export default function Header() {
           <span className="material-icons text-5xl text-teal-500 ">
             account_circle
           </span>
-          <h3 className="text-teal-500">Witaj, Marek!</h3>
+          <h3 className="text-teal-400">Witaj, Marek!</h3>
         </div>
       </div>
     </header>

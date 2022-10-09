@@ -20,7 +20,7 @@ const Home = ({ patients }: Props) => {
   console.log(patients);
   return (
     <Layout>
-      <div className="w-1/4 min-w-fit mx-auto my-4 flex flex-col gap-8">
+      <div className="w-1/4 mx-auto my-4 flex flex-col gap-8">
         {patients.map((patient: PatientPreviewType, idx: number) => (
           <PatientPreview key={idx} patient={patient} />
         ))}

@@ -1,11 +1,14 @@
 import { useState } from "react";
+import Charts from "./charts.component";
+import Drugs from "./drugs.component";
+import History from "./history.component";
 
 export function Tabs() {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const tabsData = [
-    { label: "Wykresy", component: <p>fajnie</p> },
-    { label: "Leki", component: <p>gitara</p> },
-    { label: "Historia Leczenia", component: <p>hisotria leczenia</p> },
+    { label: "Wykresy", component: <Charts /> },
+    { label: "Aktualne leki", component: <Drugs /> },
+    { label: "Historia leczenia", component: <History /> },
   ];
   return (
     <div>
@@ -14,7 +17,7 @@ export function Tabs() {
           return (
             <button
               key={idx}
-              className={`py-2 flex-1 shadow-md rounded-lg transition-colors duration-300 ${
+              className={`py-2 flex-1 shadow-md rounded-lg transition-colors duration-300 hover:opacity-75 ${
                 idx === activeTabIndex
                   ? "bg-teal-600 text-white"
                   : "bg-gray-200"
@@ -26,7 +29,7 @@ export function Tabs() {
           );
         })}
       </div>
-      <div className="py-4">{tabsData[activeTabIndex].component}</div>
+      <div className="py-8">{tabsData[activeTabIndex].component}</div>
     </div>
   );
 }

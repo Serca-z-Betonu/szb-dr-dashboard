@@ -1,10 +1,14 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import Layout from "../../components/layout.component";
 import PatientPreview from "../../components/patient-preview.component";
 import { Tabs } from "../../components/tabs.component";
 import { fetchPatient } from "../../utils/fetchers.util";
-import { PatientType } from "../../utils/types.util";
+import { PatientContextType, PatientType } from "../../utils/types.util";
+
+export const PatientContext = createContext<PatientContextType>({
+  patientId: "",
+});
 
 type Props = {
   patient: PatientType;
@@ -20,8 +24,8 @@ export async function getServerSideProps({ params: { patientId } }: any) {
 const PatientProfile = ({ patient }: Props) => {
   return (
     <Layout>
-      <div className="w-3/4 min-w-fit mx-auto my-4 flex flex-col gap-8">
-        <div className="container card grid grid-cols-[1fr_2fr_1fr]">
+      <div className="w-3/4  mx-auto my-4 flex flex-col gap-8">
+        <div className="card min-w-fit grid grid-cols-[1fr_2fr_1fr]">
           <div className="flex flex-col gap-4">
             <div className="flex-1 grid place-items-center self-start">
               <span className="material-icons text-9xl text-teal-900 ">
@@ -58,7 +62,11 @@ const PatientProfile = ({ patient }: Props) => {
             </span>
           </div>
         </div>
-        <Tabs />
+        <PatientContext.Provider
+          value={{ patientId: patient.patient_id.toString() }}
+        >
+          <Tabs />
+        </PatientContext.Provider>
       </div>
     </Layout>
   );

@@ -61,19 +61,19 @@ h6 {
 }
 
 html::-webkit-scrollbar {
-  width: var(--scrollbar-size);
-  background: var(--color-background-light);
+  width: 15px;
+  background: white;
 }
 
 html::-webkit-scrollbar-thumb {
-  background: var(--color-scrollbar);
+  background: #275e59;
   border-radius: 100vw;
   border: 2px solid transparent;
   background-clip: content-box;
 }
 
 html::-webkit-scrollbar-thumb:hover {
-  background: var(--color-scrollbar-hover);
+  background: #1f4e4a;
   border-radius: 100vw;
   border: 2px solid transparent;
   background-clip: content-box;
@@ -82,5 +82,9 @@ html::-webkit-scrollbar-thumb:hover {
 @layer components {
   .card {
     @apply bg-gray-200 rounded-lg shadow-md border-2 border-t-8 w-full h-64 p-2 border-teal-400;
+  }
+
+  .card-sm {
+    @apply bg-gray-200 rounded-lg shadow-md border-2 border-t-8 w-fit h-fit p-2 border-teal-400;
   }
 }
