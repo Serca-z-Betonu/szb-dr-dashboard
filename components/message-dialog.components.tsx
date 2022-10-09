@@ -77,7 +77,7 @@ export default function MessageDialog({ patientId, isOpen, setIsOpen }: Props) {
 
                   <div className="mt-4 ml-auto w-fit">
                     <button type="submit" className="btn">
-                      Dodaj
+                      Wyślij
                     </button>
                   </div>
                 </form>
